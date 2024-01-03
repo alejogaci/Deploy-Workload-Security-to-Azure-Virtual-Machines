@@ -44,5 +44,7 @@ Set of scripts used to deploy massive workload security to azure virtual machine
     ```
     The previous example assumes that it is going to be deployed in bulk for both Linux and Widnows, however the script can be executed with at least one of the -LinuxScriptPath or -WindowsScriptPath arguments, both are not necessary.
 
+# Remove tag
 
+Additionally, you can remove the tag from the machines with the script unTag.ps1
 
