@@ -1,5 +1,5 @@
 # Deploy-Workload-Security-to-Azure-Virtual-Machines
-Set of scripts used to deploy massive workload security to azure virtual machines
+Set of scripts used to deploy massive workload security to azure virtual machines either Windows or Linux in any of its supported distributions.
 
 ## Prerequisites
 
@@ -7,6 +7,7 @@ Set of scripts used to deploy massive workload security to azure virtual machine
 - Azure PowerShell Module (Az)
   - Install the module by running `Install-Module -Name Az -AllowClobber -Force -Scope CurrentUser` if not already installed.
 - Otherwise you can use Azure cloudshell
+- Download the Deployment script from Trend Micro Vision One
 
 # Usage
 
@@ -20,7 +21,7 @@ Set of scripts used to deploy massive workload security to azure virtual machine
    ```powershell
    ./Tags.ps1
     ```
-    If, on the other hand, machines are to be excluded from the installation, the script must be used as follows
+    If, on the other hand, machines are going to be excluded from the installation, the script must be used as follows
    ```powershell
    ./Tags.ps1 -ExclusionFile "path\to\Exclusions.txt"
     ```
@@ -32,13 +33,16 @@ Set of scripts used to deploy massive workload security to azure virtual machine
    Debian1
    windowsserver2
    ```
-   
+3. **Deploy to all VM (DeploytoAll.ps1):**
+   The DeploytoAll.ps1 script deploys workload security on all subscription machines, this script must be executed together with the deployment script downloaded from Vision One as follows:
+   ```powershell
+   ./DeploytoAll.ps1 -LinuxScriptPath "path\to\LinuxDeploymentScript.sh" -WindowsScriptPath "path\to\WindowsDeploymentScript"
+    ```
 
 # Azure VM Tagging Script (Tags.ps1)
 
 The Tags.ps1 script selects the virtual machines in the Azure subscription to which Workload Security is going to be installed. If you do not want to make exceptions and it is going to be installed on all the machines in the subscription, the script must be used in the following way.
 
     ./Tags.ps1
-
 
 
