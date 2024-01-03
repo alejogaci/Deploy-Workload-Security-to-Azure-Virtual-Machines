@@ -12,11 +12,11 @@ Set of scripts used to deploy massive workload security to azure virtual machine
 
 1. **Clone or Download the Script:**
    Clone this repository:
-   ```bash
+   ```powershell
    git clone https://github.com/alejogaci/Deploy-Workload-Security-to-Azure-Virtual-Machines.git
 
-3. **Configure Execution Policy:**
-   Before running the script, ensure that PowerShell allows script execution. You can do this by running the following command in PowerShell:
+3. **Azure VM Tagging Script (Tags.ps1):**
+   The Tags.ps1 script selects the virtual machines in the Azure subscription to which Workload Security is going to be installed. If you do not want to make exceptions and it is going to be installed on all the machines in the subscription, the script must be used in the following way.
    ```powershell
    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 
