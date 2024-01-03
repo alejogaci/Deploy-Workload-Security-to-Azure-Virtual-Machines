@@ -21,19 +21,23 @@ Set of scripts used to deploy massive workload security to azure virtual machine
    ```powershell
    ./Tags.ps1
     ```
-    If, on the other hand, machines are going to be excluded from the installation, the script must be used as follows
+    If there are machines that are going to be excluded from the installation, the script must be used as follows
    ```powershell
    ./Tags.ps1 -ExclusionFile "path\to\Exclusions.txt"
     ```
-
-    In the exclusions file you must put the names of the virtual machines, here is an example of what the exclusions.txt file should look like
+    Alternatively, if Workload Security is only going to be installed on a short list of machines, so as not to have a very long list of exclusions, this list can be indicated as follows:
+   ```powershell
+   ./Tags.ps1 -InclusionFile ""path\to\Inclusions.txt""
+    ```
+   
+    In the exclusions or inclusions file you must put the names of the virtual machines, here is an example of what these files should look like.
    ```bash
    Linux1
    windows2
    Debian1
    windowsserver2
    ```
-3. **Deploy to all VM (DeploytoAll.ps1):**
+4. **Deploy to all VM (DeploytoAll.ps1):**
    The DeploytoAll.ps1 script deploys workload security on all subscription machines, this script must be executed together with the deployment script downloaded from Vision One as follows:
    ```powershell
    ./DeploytoAll.ps1 -LinuxScriptPath "path\to\LinuxDeploymentScript.sh" -WindowsScriptPath "path\to\WindowsDeploymentScript"
