@@ -12,7 +12,7 @@ Set of scripts used to deploy massive workload security to azure virtual machine
 
 1. **Clone or Download the Script:**
    Clone this repository:
-   ```powershell
+   ```bash
    git clone https://github.com/alejogaci/Deploy-Workload-Security-to-Azure-Virtual-Machines.git
 
 3. **Configure Execution Policy:**
