@@ -20,7 +20,7 @@ Set of scripts used to deploy massive workload security to azure virtual machine
    ```powershell
    ./Tags.ps1
 
-If, on the other hand, machines are to be excluded from the installation, the script must be used as follows
+ . If, on the other hand, machines are to be excluded from the installation, the script must be used as follows
    ```powershell
    ./Tags.ps11 -ExclusionFile "path\to\Exclusions.txt"
 
