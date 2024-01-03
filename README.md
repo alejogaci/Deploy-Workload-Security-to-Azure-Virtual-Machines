@@ -19,8 +19,8 @@ Set of scripts used to deploy massive workload security to azure virtual machine
    The Tags.ps1 script selects the virtual machines in the Azure subscription to which Workload Security is going to be installed. If you do not want to make exceptions and it is going to be installed on all the machines in the subscription, the script must be used in the following way.
    ```powershell
    ./Tags.ps1
-
-** If, on the other hand, machines are to be excluded from the installation, the script must be used as follows
+    ```
+    If, on the other hand, machines are to be excluded from the installation, the script must be used as follows
    ```powershell
    ./Tags.ps11 -ExclusionFile "path\to\Exclusions.txt"
 
