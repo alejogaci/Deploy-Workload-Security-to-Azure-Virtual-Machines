@@ -15,10 +15,20 @@ Set of scripts used to deploy massive workload security to azure virtual machine
    ```powershell
    git clone https://github.com/alejogaci/Deploy-Workload-Security-to-Azure-Virtual-Machines.git
 
-3. **Azure VM Tagging Script (Tags.ps1):**
+2. **Azure VM Tagging Script (Tags.ps1):**
    The Tags.ps1 script selects the virtual machines in the Azure subscription to which Workload Security is going to be installed. If you do not want to make exceptions and it is going to be installed on all the machines in the subscription, the script must be used in the following way.
    ```powershell
-   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+   ./Tags.ps1
+
+   If, on the other hand, machines are to be excluded from the installation, the script must be used as follows
+   ```powershell
+   ./Tags.ps11 -ExclusionFile "path\to\Exclusions.txt"
+
+   Here is an example of what the exclusions.txt file should look like
+   ```bash
+   Linux1
+   windows2
+   
 
 # Azure VM Tagging Script (Tags.ps1)
 
