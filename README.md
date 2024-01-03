@@ -38,11 +38,7 @@ Set of scripts used to deploy massive workload security to azure virtual machine
    ```powershell
    ./DeploytoAll.ps1 -LinuxScriptPath "path\to\LinuxDeploymentScript.sh" -WindowsScriptPath "path\to\WindowsDeploymentScript"
     ```
+    The previous example assumes that it is going to be deployed in bulk for both Linux and Widnows, however the script can be executed with at least one of the -LinuxScriptPath or -WindowsScriptPath arguments, both are not necessary.
 
-# Azure VM Tagging Script (Tags.ps1)
-
-The Tags.ps1 script selects the virtual machines in the Azure subscription to which Workload Security is going to be installed. If you do not want to make exceptions and it is going to be installed on all the machines in the subscription, the script must be used in the following way.
-
-    ./Tags.ps1
 
 
