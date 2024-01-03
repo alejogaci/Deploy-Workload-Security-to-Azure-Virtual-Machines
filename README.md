@@ -22,13 +22,15 @@ Set of scripts used to deploy massive workload security to azure virtual machine
     ```
     If, on the other hand, machines are to be excluded from the installation, the script must be used as follows
    ```powershell
-   ./Tags.ps11 -ExclusionFile "path\to\Exclusions.txt"
+   ./Tags.ps1 -ExclusionFile "path\to\Exclusions.txt"
     ```
 
-    Here is an example of what the exclusions.txt file should look like
+    In the exclusions file you must put the names of the virtual machines, here is an example of what the exclusions.txt file should look like
    ```bash
    Linux1
    windows2
+   Debian1
+   windowsserver2
    ```
    
 
