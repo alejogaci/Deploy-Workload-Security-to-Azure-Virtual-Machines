@@ -9,19 +9,19 @@ if (-not $LinuxScriptPath -and -not $WindowsScriptPath) {
     Exit 1
 }
 
-# Verificar si Azure CLI está instalado
+# Check if Azure CLI is installed
 if (!(Get-Command -Name "az" -ErrorAction SilentlyContinue)) {
     Write-Host "Azure CLI is not installed. Please install it before running this script."
     Exit 1
 }
 
-# Obtener información sobre todas las máquinas virtuales en la suscripción
+# Get information about all virtual machines in the subscription
 $vms = az vm list --query "[].{Name:name, ResourceGroup:resourceGroup, Tags:tags}" --output json | ConvertFrom-Json
 
-# Configurar el número máximo de trabajos en paralelo
+# Configure the maximum number of parallel jobs
 $maximumJobs = 10  # Puedes ajustar este valor según tus necesidades
 
-# Crear un script block para el comando Invoke-AzVMRunCommand si LinuxScriptPath está proporcionado
+# Create a script block for the Invoke-AzVMRunCommand command if LinuxScriptPath is provided
 $scriptBlockLinux = if ($LinuxScriptPath) {
     {
         param ($resourceGroupName, $vmName, $scriptPath)
@@ -29,7 +29,7 @@ $scriptBlockLinux = if ($LinuxScriptPath) {
     }
 }
 
-# Crear un script block para el comando Invoke-AzVMRunCommand si WindowsScriptPath está proporcionado
+# Create a script block for the Invoke-AzVMRunCommand command if WindowsScriptPath is provided
 $scriptBlockWindows = if ($WindowsScriptPath) {
     {
         param ($resourceGroupName, $vmName, $scriptPath)
@@ -37,7 +37,7 @@ $scriptBlockWindows = if ($WindowsScriptPath) {
     }
 }
 
-# Ejecutar el comando en paralelo solo si se proporciona un script block y script path
+# Run the command in parallel only if a script block and script path are provided
 if ($scriptBlockLinux -or $scriptBlockWindows) {
     $jobs = @()
     foreach ($vm in $vms) {
@@ -60,10 +60,10 @@ if ($scriptBlockLinux -or $scriptBlockWindows) {
         }
     }
 
-    # Esperar a que todos los trabajos se completen
+    # Wait for all jobs to complete
     $jobs | Receive-Job -Wait -AutoRemoveJob
 
-    Write-Host "Proceso completado."
+    Write-Host "Completed process."
 } else {
     Write-Host "Error: No valid script path provided. Please provide either LinuxScriptPath or WindowsScriptPath."
 }
