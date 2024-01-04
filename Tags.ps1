@@ -3,21 +3,21 @@ param (
     [string]$InclusionFile = ""
 )
 
-# Validar que solo se use uno de los archivos
+# Check that only one of the files is used
 if ($ExclusionFile -ne "" -and $InclusionFile -ne "") {
-    Write-Host "Error: Debes especificar solo uno de los archivos, ya sea ExclusionFile o InclusionFile."
+    Write-Host "Error: You must specify only one of the files, either ExclusionFile or InclusionFile."
     Exit 1
 }
 
-# Instalar el módulo de Azure PowerShell si no está instalado
+# Install the Azure PowerShell module if it is not installed
 if (!(Get-Module -Name Az -ListAvailable)) {
     Install-Module -Name Az -AllowClobber -Force -Scope CurrentUser
 }
 
-# Obtener información sobre todas las máquinas virtuales en la suscripción
+# Get information about all virtual machines in the subscription
 $vms = Get-AzVM
 
-# Iniciar sesión en Azure
+# Sign in to Azure
 Connect-AzAccount
 
 # Obtener la lista de máquinas excluidas
@@ -26,13 +26,13 @@ if ($ExclusionFile -ne "" -and (Test-Path $ExclusionFile)) {
     $ExcludedVMs = Get-Content $ExclusionFile
 }
 
-# Obtener la lista de máquinas incluidas
+# Get the list of included machines
 $IncludedVMs = @()
 if ($InclusionFile -ne "" -and (Test-Path $InclusionFile)) {
     $IncludedVMs = Get-Content $InclusionFile
 }
 
-# Iterar sobre las máquinas virtuales y asignar tags
+# Iterate over virtual machines and assign tags
 foreach ($vm in $vms) {
     $resourceGroupName = $vm.ResourceGroupName
     $vmName = $vm.Name
@@ -40,21 +40,21 @@ foreach ($vm in $vms) {
 
     # Verificar si la VM está en la lista de exclusiones
     if ($ExcludedVMs -contains $vmName) {
-        Write-Host "La VM $vmName está excluida. No se aplicarán tags."
+        Write-Host "VM $vmName is excluded. No tags will be applied."
         continue
     }
 
-    # Verificar si la VM está en la lista de inclusiones o si no se proporciona el archivo de inclusión
+    #Check if the VM is in the include list or if the include file is not provided
     if ($IncludedVMs -contains $vmName -or $InclusionFile -eq "") {
         # Asignar tags según el sistema operativo
         if ($osType -eq 'Linux') {
-            Write-Host "Añadiendo tag wls:linux_true a la VM $vmName"
+            Write-Host "Adding wls:linux_true tag to VM $vmName"
             Set-AzResource -ResourceId $vm.Id -Tag @{'wls' = 'linux_true'} -Force
         } elseif ($osType -eq 'Windows') {
-            Write-Host "Añadiendo tag wls:windows_true a la VM $vmName"
+            Write-Host "Adding wls:windows_true tag to VM $vmName"
             Set-AzResource -ResourceId $vm.Id -Tag @{'wls' = 'windows_true'} -Force
         }
     }
 }
 
-Write-Host "Proceso completado."
+Write-Host "Completed process."
